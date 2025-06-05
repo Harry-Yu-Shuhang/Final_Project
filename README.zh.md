@@ -51,6 +51,8 @@ uv run main.py
 
 ![累计收益图](./cumulative_returns.png)
 
+📄 [点击此处查看完整的结果→result.md](./result.md)
+
 ### 📁 项目结构
 
 ```

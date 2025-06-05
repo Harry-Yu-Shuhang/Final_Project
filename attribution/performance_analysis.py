@@ -26,21 +26,44 @@ def analyze_performance(portfolio_returns: pd.Series, factor_df: pd.DataFrame = 
                         hedge_returns: pd.Series = None) -> None:
     """
     Main entry for performance attribution analysis.
+    Also writes summary to result.md.
     """
-    print("\n✅ Basic Performance Metrics:")
+    lines = []
+
+    # === Basic performance ===
     basic = compute_basic_metrics(portfolio_returns)
+    print("\n✅ Basic Performance Metrics:")
+    lines.append("# 📈 Basic Performance Metrics\n")
     for k, v in basic.items():
         print(f"{k}: {v:.4f}")
+        lines.append(f"- **{k.replace('_', ' ').title()}**: {v:.4f}")
 
+    # === Factor exposure ===
     if factor_df is not None:
+        lines.append("\n---\n\n# 📉 Beta Exposure to Risk Factors\n")
         print("\n📈 Beta Exposures to Risk Factors:")
         betas = compute_beta_exposure(portfolio_returns, factor_df)
-        print(betas)
+        for k, v in betas.items():
+            print(f"{k}: {v:.4f}")
+            lines.append(f"- **{k}**: {v:.4f}")
 
+    # === Hedge effect ===
     if hedge_returns is not None:
+        lines.append("\n---\n\n# 🧩 Effect of Hedging\n")
         print("\n🔍 Evaluating effect of hedging:")
         combined = portfolio_returns + hedge_returns
         hedged_metrics = compute_basic_metrics(combined)
         print("With Hedging:")
+        lines.append("## With Hedging:")
         for k, v in hedged_metrics.items():
             print(f"{k}: {v:.4f}")
+            lines.append(f"- **{k.replace('_', ' ').title()}**: {v:.4f}")
+
+    # === Save to result.md ===
+    result_md = "result.md"
+    with open(result_md, "w") as f:
+        f.write("\n".join(lines))
+        f.write("\n\n---\n\n![Cumulative Returns](./cumulative_returns.png)\n")
+
+    print(f"\n📝 Results saved to {result_md}")
+

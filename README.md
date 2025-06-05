@@ -51,6 +51,8 @@ uv run main.py
 
 ![Portfolio Cumulative Returns](./cumulative_returns.png)
 
+📄 [Click here to view full performance result → result.md](./result.md)
+
 ### 📁 Project Structure
 
 ```
