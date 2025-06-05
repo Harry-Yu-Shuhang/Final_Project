@@ -73,4 +73,4 @@ QF623_Final_Project/
 
 ## 📜 License
 
-MIT License © 2025 Shuhang Yu
+MIT License
