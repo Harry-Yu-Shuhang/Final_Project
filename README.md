@@ -54,19 +54,47 @@ uv run main.py
 ### 📁 Project Structure
 
 ```
-QF623_Final_Project/
-├── config/
-├── data/
-├── signals/
-├── portfolio/
-├── execution/
-├── attribution/
-├── utils/
-├── main.py
-├── pyproject.toml
+├── attribution
+│   ├── __pycache__
+│   │   └── performance_analysis.cpython-311.pyc
+│   └── performance_analysis.py
+├── config
+│   ├── __pycache__
+│   │   └── config_loader.cpython-311.pyc
+│   ├── config_loader.py
+│   └── config.yaml
 ├── cumulative_returns.png
+├── data
+│   ├── __pycache__
+│   │   ├── data_loader.cpython-311.pyc
+│   │   └── etf_universe.cpython-311.pyc
+│   ├── data_loader.py
+│   └── etf_universe.py
+├── execution
+│   ├── __pycache__
+│   │   └── rebalance.cpython-311.pyc
+│   └── rebalance.py
+├── main.py
+├── portfolio
+│   ├── __pycache__
+│   │   └── optimizer.cpython-311.pyc
+│   ├── constraints.py
+│   └── optimizer.py
+├── project_code_dump.txt
+├── pyproject.toml
 ├── README.md
 ├── README.zh.md
+├── signals
+│   ├── __pycache__
+│   │   └── alpha_signal.cpython-311.pyc
+│   └── alpha_signal.py
+├── utils
+│   ├── __pycache__
+│   │   ├── metrics.cpython-311.pyc
+│   │   └── plot.cpython-311.pyc
+│   ├── metrics.py
+│   └── plot.py
+└── uv.lock
 ```
 
 ---
