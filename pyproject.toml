@@ -1,0 +1,32 @@
+[project]
+name = "qf623-portfolio-management"
+version = "0.1.0"
+description = "ETF strategy to maximize Sharpe ratio with minimum risk"
+authors = [
+  { name = "Shuhang Yu", email = "your_email@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+
+dependencies = [
+  "yfinance",
+  "pandas",
+  "numpy",
+  "matplotlib",
+  "seaborn",
+  "statsmodels",
+  "scipy",
+  "pyyaml",
+  "pandas",
+]
+
+[tool.setuptools]
+packages = ["data", "signals", "portfolio", "execution", "attribution", "utils", "config"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yaml"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
