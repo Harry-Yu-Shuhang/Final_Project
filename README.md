@@ -35,6 +35,7 @@ This project implements an ETF portfolio strategy that aims to **maximize the Sh
 # If using conda:
 conda create -n qf623 python=3.10
 conda activate qf623
+# If using uv:
 pip install uv  # optional
 uv pip install -r requirements.txt  # or use `uv pip install .`
 
@@ -54,16 +55,47 @@ python main.py
 ### 📁 Project Structure
 
 ```
-QF623_Final_Project/
-├── config/
-├── data/
-├── signals/
-├── portfolio/
-├── execution/
-├── attribution/
-├── utils/
+├── attribution
+│   ├── __pycache__
+│   │   └── performance_analysis.cpython-311.pyc
+│   └── performance_analysis.py
+├── config
+│   ├── __pycache__
+│   │   └── config_loader.cpython-311.pyc
+│   ├── config_loader.py
+│   └── config.yaml
+├── cumulative_returns.png
+├── data
+│   ├── __pycache__
+│   │   ├── data_loader.cpython-311.pyc
+│   │   └── etf_universe.cpython-311.pyc
+│   ├── data_loader.py
+│   └── etf_universe.py
+├── execution
+│   ├── __pycache__
+│   │   └── rebalance.cpython-311.pyc
+│   └── rebalance.py
 ├── main.py
-└── cumulative_returns.png
+├── portfolio
+│   ├── __pycache__
+│   │   └── optimizer.cpython-311.pyc
+│   ├── constraints.py
+│   └── optimizer.py
+├── project_code_dump.txt
+├── pyproject.toml
+├── README.md
+├── README.zh.md
+├── signals
+│   ├── __pycache__
+│   │   └── alpha_signal.cpython-311.pyc
+│   └── alpha_signal.py
+├── utils
+│   ├── __pycache__
+│   │   ├── metrics.cpython-311.pyc
+│   │   └── plot.cpython-311.pyc
+│   ├── metrics.py
+│   └── plot.py
+└── uv.lock
 ```
 
 ---
@@ -98,7 +130,8 @@ QF623_Final_Project/
 # conda 创建环境（推荐）
 conda create -n qf623 python=3.10
 conda activate qf623
-pip install uv  # 如需极致速度
+# 如需极致速度, 可以使用uv，如下
+pip install uv  
 uv pip install .  # 或使用 `uv pip install -r requirements.txt`
 ```
 
