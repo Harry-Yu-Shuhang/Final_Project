@@ -35,17 +35,18 @@ This project implements an ETF portfolio strategy that aims to **maximize the Sh
 # If using conda:
 conda create -n qf623 python=3.10
 conda activate qf623
+
 # If using uv:
 pip install uv  # optional
 uv pip install -r requirements.txt  # or use `uv pip install .`
-
-# Or with poetry (optional)
-poetry install
 ```
 
 ```bash
-# Run the strategy
+# Using conda
 python main.py
+
+#Using uv
+uv run main.py
 ```
 
 ### 📈 Output
@@ -127,17 +128,21 @@ python main.py
 > 💡 本项目使用 `pyproject.toml` 管理依赖，推荐使用 **`conda`** 或轻量级工具 **[`uv`](https://github.com/astral-sh/uv)** 管理环境。
 
 ```bash
-# conda 创建环境（推荐）
+# conda 创建环境
 conda create -n qf623 python=3.10
 conda activate qf623
+
 # 如需极致速度, 可以使用uv，如下
 pip install uv  
 uv pip install .  # 或使用 `uv pip install -r requirements.txt`
 ```
 
 ```bash
-# 运行主程序
+# 如果使用conda
 python main.py
+
+# 如果使用uv
+uv run main.py
 ```
 
 ### 📈 输出示例
