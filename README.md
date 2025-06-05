@@ -57,29 +57,18 @@ uv run main.py
 
 ```
 ├── attribution
-│   ├── __pycache__
-│   │   └── performance_analysis.cpython-311.pyc
 │   └── performance_analysis.py
 ├── config
-│   ├── __pycache__
-│   │   └── config_loader.cpython-311.pyc
 │   ├── config_loader.py
 │   └── config.yaml
 ├── cumulative_returns.png
 ├── data
-│   ├── __pycache__
-│   │   ├── data_loader.cpython-311.pyc
-│   │   └── etf_universe.cpython-311.pyc
 │   ├── data_loader.py
 │   └── etf_universe.py
 ├── execution
-│   ├── __pycache__
-│   │   └── rebalance.cpython-311.pyc
 │   └── rebalance.py
 ├── main.py
 ├── portfolio
-│   ├── __pycache__
-│   │   └── optimizer.cpython-311.pyc
 │   ├── constraints.py
 │   └── optimizer.py
 ├── pyproject.toml
@@ -87,13 +76,8 @@ uv run main.py
 ├── README.zh.md
 ├── result.md
 ├── signals
-│   ├── __pycache__
-│   │   └── alpha_signal.cpython-311.pyc
 │   └── alpha_signal.py
 ├── utils
-│   ├── __pycache__
-│   │   ├── metrics.cpython-311.pyc
-│   │   └── plot.cpython-311.pyc
 │   ├── metrics.py
 │   └── plot.py
 └── uv.lock
