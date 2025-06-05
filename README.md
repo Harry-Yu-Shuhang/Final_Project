@@ -1,58 +1,44 @@
-# QF623 ETF Portfolio Management Project
+# QF623 ETF Portfolio Management | Project Description
 
-This project implements an ETF portfolio strategy that aims to **maximize the Sharpe Ratio** under a **minimum volatility constraint**, using historical price and volume data from Yahoo Finance.
-
----
-
-## 🔍 Objective
-
-- Select a universe of ETFs (excluding leveraged/inverse funds)
-- Generate alpha signals using a **trend-following strategy**
-- Construct a long-only or long-short portfolio with:
-  - Annualized risk ≥ 3%
-  - Absolute sum of weights ≤ 100%
-- Simulate portfolio execution with **T+1 rebalancing**
-- Evaluate performance metrics and **explain factor exposures**
+> 📌 Click to switch language | 点击切换语言：  
+[🇬🇧 English](#-english-description) | [🇨🇳 中文说明](#-中文说明)
 
 ---
 
-## ⚙️ Methodology
+## 🇬🇧 English Description
 
-### 1. ETF Universe Construction
-- Filter ETFs by keywords like `3x`, `inverse`, `ultra` and volume threshold
-- See: `data/etf_universe.py`
+This project implements an ETF portfolio strategy that aims to **maximize the Sharpe Ratio** under a **minimum risk constraint**, using historical data from Yahoo Finance.
 
-### 2. Alpha Signal: Trend Following
-- Calculate short (20-day) and long (100-day) moving averages
-- Signal = short_MA - long_MA (positive = bullish)
+### 🔍 Objective
 
-### 3. Portfolio Optimization
-- Objective: maximize Sharpe ratio
-- Constraints:
-  - Annualized volatility ≥ 3%
-  - L1 norm (∑|weights|) ≤ 1
-- Solver: `scipy.optimize.minimize` with SLSQP
+- Select ETF universe (exclude leveraged/inverse ETFs)
+- Generate **alpha signals** via trend-following
+- Optimize portfolio (long-only or long-short) with:
+  - Annual volatility ≥ 3%
+  - L1 norm of weights ≤ 1
+- T+1 portfolio rebalancing logic
+- Attribution of performance via factor exposures
 
-### 4. T+1 Execution Logic
-- Signal generated at time T
-- Portfolio rebalanced at T+1 close
-- Returns measured from T+1 to T+2
+### ⚙️ Methodology Summary
 
-### 5. Performance Attribution
-- Compute:
-  - Annualized return, volatility, Sharpe ratio
-  - Beta exposures to macro/equity factors (optional)
-  - Hedging impact (optional)
+- **Universe Filtering:** keyword + volume threshold  
+- **Alpha Signal:** MA crossover (20d – 100d)  
+- **Optimization:** Sharpe maximization + constraints  
+- **Execution:** Simulated T+1 trade  
+- **Attribution:** Returns, Sharpe, beta exposures
 
----
+### 🚀 Quick Start
 
-## 🚀 Quick Start
+> 💡 This project uses `pyproject.toml` — we recommend using **`conda`** or **[`uv`](https://github.com/astral-sh/uv)** for modern dependency management.
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# If using conda:
+conda create -n qf623 python=3.10
+conda activate qf623
+pip install uv  # optional
+uv pip install -r requirements.txt  # or use `uv pip install .`
 
-# Or if using poetry
+# Or with poetry (optional)
 poetry install
 ```
 
@@ -61,17 +47,11 @@ poetry install
 python main.py
 ```
 
----
+### 📈 Output
 
-## 📈 Example Output
+![Portfolio Cumulative Returns](./cumulative_returns.png)
 
-**Cumulative Portfolio Returns (T+1 Execution):**
-
-![Cumulative Returns](./cumulative_returns.png)
-
----
-
-## 📁 Project Structure
+### 📁 Project Structure
 
 ```
 QF623_Final_Project/
@@ -84,6 +64,97 @@ QF623_Final_Project/
 ├── utils/
 ├── main.py
 └── cumulative_returns.png
+```
+
+---
+
+## 🇨🇳 中文说明
+
+本项目实现了一个 ETF 策略，目标是 **在满足最低波动率约束的前提下最大化夏普比率（Sharpe Ratio）**，使用 `yfinance` 获取历史数据，并进行模拟回测与因子归因分析。
+
+### 🎯 项目目标
+
+- 构建 ETF 投资池（排除杠杆/反向产品）
+- 通过趋势跟随生成 alpha 信号
+- 投资组合构建（支持 long-only / long-short）满足：
+  - 年化波动率 ≥ 3%
+  - 权重绝对值之和 ≤ 1
+- 模拟 T+1 执行逻辑
+- 归因分析：收益、beta、对冲等
+
+### ⚙️ 方法摘要
+
+- **ETF 选择**：关键词过滤 + 平均成交量筛选  
+- **Alpha 信号**：短期/长期移动平均差值  
+- **组合优化**：最大化夏普比率 + 约束条件  
+- **T+1 执行模拟**：T 生成信号，T+1 执行，T+2 计收益  
+- **表现归因**：输出指标与因子回归结果
+
+### 🚀 快速开始
+
+> 💡 本项目使用 `pyproject.toml` 管理依赖，推荐使用 **`conda`** 或轻量级工具 **[`uv`](https://github.com/astral-sh/uv)** 管理环境。
+
+```bash
+# conda 创建环境（推荐）
+conda create -n qf623 python=3.10
+conda activate qf623
+pip install uv  # 如需极致速度
+uv pip install .  # 或使用 `uv pip install -r requirements.txt`
+```
+
+```bash
+# 运行主程序
+python main.py
+```
+
+### 📈 输出示例
+
+![累计收益图](./cumulative_returns.png)
+
+### 📁 项目结构
+
+```
+├── attribution
+│   ├── __pycache__
+│   │   └── performance_analysis.cpython-311.pyc
+│   └── performance_analysis.py
+├── config
+│   ├── __pycache__
+│   │   └── config_loader.cpython-311.pyc
+│   ├── config_loader.py
+│   └── config.yaml
+├── cumulative_returns.png
+├── data
+│   ├── __pycache__
+│   │   ├── data_loader.cpython-311.pyc
+│   │   └── etf_universe.cpython-311.pyc
+│   ├── data_loader.py
+│   └── etf_universe.py
+├── execution
+│   ├── __pycache__
+│   │   └── rebalance.cpython-311.pyc
+│   └── rebalance.py
+├── main.py
+├── portfolio
+│   ├── __pycache__
+│   │   └── optimizer.cpython-311.pyc
+│   ├── constraints.py
+│   └── optimizer.py
+├── project_code_dump.txt
+├── pyproject.toml
+├── README.md
+├── README.zh.md
+├── signals
+│   ├── __pycache__
+│   │   └── alpha_signal.cpython-311.pyc
+│   └── alpha_signal.py
+├── utils
+│   ├── __pycache__
+│   │   ├── metrics.cpython-311.pyc
+│   │   └── plot.cpython-311.pyc
+│   ├── metrics.py
+│   └── plot.py
+└── uv.lock
 ```
 
 ---
