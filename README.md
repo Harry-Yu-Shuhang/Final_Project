@@ -82,7 +82,6 @@ uv run main.py
 │   │   └── optimizer.cpython-311.pyc
 │   ├── constraints.py
 │   └── optimizer.py
-├── project_code_dump.txt
 ├── pyproject.toml
 ├── README.md
 ├── README.zh.md
