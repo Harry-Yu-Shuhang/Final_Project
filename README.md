@@ -86,6 +86,7 @@ uv run main.py
 ├── pyproject.toml
 ├── README.md
 ├── README.zh.md
+├── result.md
 ├── signals
 │   ├── __pycache__
 │   │   └── alpha_signal.cpython-311.pyc
