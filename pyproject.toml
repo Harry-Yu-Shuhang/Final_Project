@@ -1,5 +1,5 @@
 [project]
-name = "qf623-portfolio-management"
+name ="portfolio-management"
 version = "0.1.0"
 description = "ETF strategy to maximize Sharpe ratio with minimum risk"
 authors = [
