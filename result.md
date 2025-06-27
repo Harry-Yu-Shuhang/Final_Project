@@ -8,8 +8,11 @@
 
 # 📉 Beta Exposure to Risk Factors
 
-- **const**: 0.0004
-- **SPY**: -0.0678
+- **const**: 0.0003
+- **SPY**: -0.0586
+- **TLT**: 0.0452
+- **USO**: -0.0051
+- **GLD**: 0.0231
 
 ---
 

@@ -36,10 +36,34 @@ def main():
         price_df=price_data)
 
     # Step 7: Analyze portfolio performance with attribution and hedging
-    # Market factor: SPY
-    spy = yf.download("SPY", start=price_data.index[0], end=price_data.index[-1])["Close"].pct_change()
-    spy.name = "SPY"
-    factor_df = pd.DataFrame(spy).reindex(simulated_returns.index).dropna()
+    # Load multiple macro factors from config
+    macro_factors = config.get("macro_factors", [])
+    factor_data = {}
+
+    for symbol in macro_factors:
+        df = yf.download(symbol, start=price_data.index[0], end=price_data.index[-1])
+        if isinstance(df.columns, pd.MultiIndex):
+            if ("Close", symbol) not in df.columns:
+                print(f"⚠️ Warning: {symbol} has no 'Close' data (multi-index), skipping.")
+                continue
+            close = df[("Close", symbol)]
+        else:
+            if "Close" not in df.columns:
+                print(f"⚠️ Warning: {symbol} has no 'Close' column (flat), skipping.")
+                continue
+            close = df["Close"]
+
+        if close.isna().all():
+            print(f"⚠️ Warning: {symbol} Close series is all NaN, skipping.")
+            continue
+
+        factor = close.pct_change()
+        factor.name = symbol
+        factor_data[symbol] = factor
+
+    # Combine into one DataFrame and align with portfolio returns
+    factor_df = pd.DataFrame(factor_data).reindex(simulated_returns.index).dropna()
+
 
     # Hedging asset: TLT
     # ✅ Make sure tlt is a Series
