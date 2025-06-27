@@ -7,6 +7,7 @@ from execution.rebalance import simulate_rebalance
 from attribution.performance_analysis import analyze_performance
 from utils.plot import plot_cumulative_returns
 import pandas as pd
+import yfinance as yf
 
 def main():
     # Step 1: Load config
@@ -34,8 +35,27 @@ def main():
         index=price_data.index),
         price_df=price_data)
 
-    # Step 7: Analyze portfolio performance
-    analyze_performance(simulated_returns)
+    # Step 7: Analyze portfolio performance with attribution and hedging
+    # Market factor: SPY
+    spy = yf.download("SPY", start=price_data.index[0], end=price_data.index[-1])["Close"].pct_change()
+    spy.name = "SPY"
+    factor_df = pd.DataFrame(spy).reindex(simulated_returns.index).dropna()
+
+    # Hedging asset: TLT
+    # ✅ Make sure tlt is a Series
+    # In main.py, ensure hedge_returns is a Series
+    tlt = yf.download("TLT", start=price_data.index[0], end=price_data.index[-1])["Close"].pct_change()
+    tlt = tlt.reindex(simulated_returns.index).shift(1).fillna(0)
+    tlt.name = "hedge"
+    hedge_returns = tlt.squeeze()
+
+    print(f"simulated_returns.index.head():\n{simulated_returns.index[:5]}")
+    print(f"hedge_returns.index.head():\n{hedge_returns.index[:5]}")
+    print(f"Combined.head():\n{(simulated_returns + hedge_returns).head()}")
+
+
+    # Attribution: performance, beta exposure, and hedging
+    analyze_performance(simulated_returns, factor_df=factor_df, hedge_returns=hedge_returns)
 
     # Step 8: Visualize results
     plot_cumulative_returns(simulated_returns)

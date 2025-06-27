@@ -5,11 +5,15 @@ from utils.metrics import annualized_return, annualized_volatility, sharpe_ratio
 
 
 def compute_basic_metrics(portfolio_returns: pd.Series) -> dict:
+    if isinstance(portfolio_returns, pd.DataFrame):
+        portfolio_returns = portfolio_returns.mean(axis=1)
+
     return {
         "annual_return": annualized_return(portfolio_returns),
         "annual_volatility": annualized_volatility(portfolio_returns),
         "sharpe_ratio": sharpe_ratio(portfolio_returns)
     }
+
 
 def compute_beta_exposure(portfolio_returns: pd.Series, factor_df: pd.DataFrame) -> pd.Series:
     """
@@ -51,13 +55,15 @@ def analyze_performance(portfolio_returns: pd.Series, factor_df: pd.DataFrame = 
     if hedge_returns is not None:
         lines.append("\n---\n\n# 🧩 Effect of Hedging\n")
         print("\n🔍 Evaluating effect of hedging:")
-        combined = portfolio_returns + hedge_returns
+        combined = (portfolio_returns + hedge_returns).dropna()
+
         hedged_metrics = compute_basic_metrics(combined)
         print("With Hedging:")
         lines.append("## With Hedging:")
         for k, v in hedged_metrics.items():
             print(f"{k}: {v:.4f}")
             lines.append(f"- **{k.replace('_', ' ').title()}**: {v:.4f}")
+
 
     # === Save to result.md ===
     result_md = "result.md"
